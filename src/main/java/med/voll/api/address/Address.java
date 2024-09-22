@@ -12,16 +12,16 @@ import lombok.NoArgsConstructor;
 public class Address {
     private String street;
     private String neighborhood;
-    private String postalCode;
+    private String codepostal;
     private String number;
     private String complement;
     private String city;
     private String province;
 
-    public Address(AdressData address) {
+    public Address(AddressData address) {
         this.street = address.city();
         this.neighborhood = address.neighborhood();
-        this.postalCode = address.postalCode();
+        this.codepostal = address.codepostal();
         this.number = address.number();
         this.complement = address.complement();
         this.city = address.city();

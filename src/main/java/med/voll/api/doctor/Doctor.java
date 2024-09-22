@@ -31,7 +31,7 @@ public class Doctor {
         this.name = data.name();
         this.email = data.email();
         this.crm = data.crm();
-        this.address = new Address(data.adress());
+        this.address = new Address(data.address());
         this.specialty = data.specialty();
     }
 }
