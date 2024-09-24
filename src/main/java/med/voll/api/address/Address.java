@@ -28,4 +28,22 @@ public class Address {
         this.province = address.province();
 
     }
+
+    public void updateInformation(AddressData data){
+        if(data.street() != null){
+            this.street = data.street();
+        }
+        if(data.neighborhood() != null){
+            this.neighborhood = data.neighborhood();
+        }
+        if(data.codepostal() != null){
+            this.codepostal = data.codepostal();
+        }
+        if(data.number() != null){
+            this.number = data.number();
+        }
+        if(data.complement() != null){
+            this.complement = data.complement();
+        }
+    }
 }
