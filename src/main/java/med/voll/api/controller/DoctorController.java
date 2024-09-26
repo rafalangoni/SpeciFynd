@@ -18,6 +18,7 @@ public class DoctorController {
     @Autowired
     private DoctorRepository repository;
 
+    //URIComponentsBuilder to hide uri
     @PostMapping
     @Transactional
     public ResponseEntity registration(@RequestBody @Valid DoctorRegistrationData data, UriComponentsBuilder uriBuilder) {
