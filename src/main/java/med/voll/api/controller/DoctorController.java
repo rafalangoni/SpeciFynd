@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/doctors")
@@ -18,57 +20,46 @@ public class DoctorController {
 
     @PostMapping
     @Transactional
-    public void registration(@RequestBody @Valid DoctorRegistrationData data) {
-        repository.save(new Doctor(data));
+    public ResponseEntity registration(@RequestBody @Valid DoctorRegistrationData data, UriComponentsBuilder uriBuilder) {
+        var doctor = new Doctor(data);
+        repository.save(doctor);
+
+        var uri = uriBuilder.path("/doctor/{id}").buildAndExpand(doctor.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(new DataDetailsDoctor(doctor));
     }
 
     @GetMapping
-    public Page<DataListingDoctor> listActive(@PageableDefault(size = 10, sort = {"name"}) Pageable pagination) {
-        return repository.findAllByActiveTrue(pagination).map(DataListingDoctor::new);
+    public ResponseEntity<Page<DataListingDoctor>> listActive(@PageableDefault(size = 10, sort = {"name"}) Pageable pagination) {
+        var page = repository.findAllByActiveTrue(pagination).map(DataListingDoctor::new);
+        return ResponseEntity.ok(page);
 
     }
 
-//    @GetMapping
-//    public Page<DataListingDoctor> listAll(@PageableDefault(size = 10, sort = {"name"}) Pageable pagination) {
-//        return repository.findAll(pagination).map(DataListingDoctor::new);
-//
-//    }
 
     @PutMapping
     @Transactional
-    public void update(@RequestBody @Valid DataUpdateDoctor data) {
+    public ResponseEntity update(@RequestBody @Valid DataUpdateDoctor data) {
         var doctor = repository.getReferenceById(data.id());
         doctor.updateDoctorData(data);
+        return ResponseEntity.ok(new DataDetailsDoctor(doctor));
     }
 
-//    @DeleteMapping("/doctors/physicalDelete")
-//    @Transactional
-//    public void physicalDelete(@RequestBody Long id){
-//        repository.deleteById(id);
-//    }
 
     @DeleteMapping("/{id}")
     @Transactional
-    public void logicalExclusion(@PathVariable Long id){
+    public ResponseEntity logicalExclusion(@PathVariable Long id) {
         var doctor = repository.getReferenceById(id);
         doctor.exclude();
+        return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/{id}")
+    @Transactional
+    public ResponseEntity details(@PathVariable Long id) {
+        var doctor = repository.getReferenceById(id);
+        return ResponseEntity.ok(new DataDetailsDoctor(doctor));
+    }
 
-//    @GetMapping
-//    public List<DataListingDoctor> list(Pageable pagination){
-//        return repository.findAll(pagination)
-//                .stream()
-//                .map(doctor -> new DataListingDoctor(doctor))
-//                .toList();
-//        //This map above can be written two different ways like this:
-////                .map(DataListingDoctor::new)
-//    }
-    // If I dont want to use Page and Pageable, I can return a list instead os pagination
-//                .stream()
-//                .map(doctor -> new DataListingDoctor(doctor))
-//                .toList();
-//                This map above can be written two different ways like this:
-//                .map(DataListingDoctor::new)
 
 }
