@@ -1,6 +1,6 @@
 # Project Name
 
-Voll.med - a project to get an appointment with a doctor specialist as soon as possible!
+SpeciFynd - a project to get an appointment with a doctor specialist as soon as possible!
 
 ## Table of Contents
 
