@@ -1,9 +1,9 @@
 package med.voll.api.controller;
 
-import med.voll.api.patient.DataListingPatient;
-import med.voll.api.patient.Patient;
-import med.voll.api.patient.PatientRegistrationData;
-import med.voll.api.patient.PatientRepository;
+import med.voll.api.domain.patient.DataListingPatient;
+import med.voll.api.domain.patient.Patient;
+import med.voll.api.domain.patient.PatientRegistrationData;
+import med.voll.api.domain.patient.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
