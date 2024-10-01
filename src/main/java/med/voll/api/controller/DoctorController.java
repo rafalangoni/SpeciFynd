@@ -24,14 +24,13 @@ public class DoctorController {
     public ResponseEntity registration(@RequestBody @Valid DoctorRegistrationData data, UriComponentsBuilder uriBuilder) {
         var doctor = new Doctor(data);
         repository.save(doctor);
-
         var uri = uriBuilder.path("/doctor/{id}").buildAndExpand(doctor.getId()).toUri();
-
         return ResponseEntity.created(uri).body(new DataDetailsDoctor(doctor));
     }
 
     @GetMapping
     public ResponseEntity<Page<DataListingDoctor>> listActive(@PageableDefault(size = 10, sort = {"name"}) Pageable pagination) {
+
         var page = repository.findAllByActiveTrue(pagination).map(DataListingDoctor::new);
         return ResponseEntity.ok(page);
 

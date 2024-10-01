@@ -9,6 +9,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthenticationService implements UserDetailsService {
 
+    /*Implementing UserDetailsService we sign to Spring this class needs to be called at the starting point
+    of authentication process
+    * */
+
     @Autowired
     private UserRepository repository;
 
