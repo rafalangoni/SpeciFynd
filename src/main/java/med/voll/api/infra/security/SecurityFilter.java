@@ -38,7 +38,6 @@ public class SecurityFilter extends OncePerRequestFilter {
             //DTO which represents a user logged in. We need to instantiate it to tell Spring user has valid token and need to allow authentication
             var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            System.out.println("Logged in");
         }
 
         filterChain.doFilter(request, response);

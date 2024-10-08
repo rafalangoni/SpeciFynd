@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import med.voll.api.domain.doctor.Doctor;
+import med.voll.api.domain.doctor.Specialty;
 import med.voll.api.domain.patient.Patient;
 
 import java.time.LocalDateTime;
@@ -35,6 +36,14 @@ public class Appointment {
     @Column(name = "reason_cancellation")
     @Enumerated(EnumType.STRING)
     private ReasonCancellation reasonCancellation;
+
+    public Appointment(Long id, Doctor doctor, Patient patient, LocalDateTime date) {
+        this.id = id;
+        this.doctor = doctor;
+        this.patient = patient;
+        this.date =date;
+    }
+
 
     public void cancel(ReasonCancellation reasonCancellation){
         this.reasonCancellation = reasonCancellation;
