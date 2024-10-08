@@ -19,7 +19,7 @@ public class Address {
     private String province;
 
     public Address(AddressData address) {
-        this.street = address.city();
+        this.street = address.street();
         this.neighborhood = address.neighborhood();
         this.codepostal = address.codepostal();
         this.number = address.number();

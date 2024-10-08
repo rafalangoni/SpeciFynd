@@ -5,7 +5,7 @@ import lombok.*;
 import med.voll.api.domain.address.Address;
 
 @Table(name = "patients")
-@Entity(name = "patient")
+@Entity(name = "Patient")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -19,11 +19,13 @@ public class Patient {
     private String email;
     private String phone;
     private String cpf;
+    private Boolean active;
 
     @Embedded
     private Address address;
 
     public Patient(PatientRegistrationData data) {
+        this.active = true;
         this.email = data.email();
         this.name = data.name();
         this.phone = data.phone();;

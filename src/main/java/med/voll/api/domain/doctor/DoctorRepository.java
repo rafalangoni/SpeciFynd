@@ -13,6 +13,14 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
     Page<Doctor> findAllByActiveTrue(Pageable pagination);
 
     @Query("""
+            select d.active
+            from Doctor d
+            where
+            d.id = :idDoctor
+            """)
+    Boolean findActiveById(Long idDoctor);
+
+    @Query("""
             select d from Doctor d
             where
             d.active = true
