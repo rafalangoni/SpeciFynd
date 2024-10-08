@@ -2,6 +2,7 @@ package med.voll.api.infra.exception;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ValidationException;
+import med.voll.api.domain.AppointmentValidationException;
 import med.voll.api.domain.appointment.validations.ValidateAppointment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -24,8 +25,8 @@ public class HandleExceptions {
                 .body(errors.stream().map(DataErrorValidation::new).toList());
     }
 
-    @ExceptionHandler(ValidationException.class)
-    public ResponseEntity handleBusinessRules(ValidationException ex) {
+    @ExceptionHandler(AppointmentValidationException.class)
+    public ResponseEntity handleBusinessRules(AppointmentValidationException ex) {
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
 

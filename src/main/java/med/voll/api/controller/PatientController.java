@@ -1,5 +1,7 @@
 package med.voll.api.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import med.voll.api.domain.patient.DataListingPatient;
 import med.voll.api.domain.patient.Patient;
 import med.voll.api.domain.patient.PatientRegistrationData;
@@ -11,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/patients")
+@SecurityRequirement(name = "bearer-key")
 public class PatientController {
 
     @Autowired
